@@ -1,4 +1,4 @@
-# DockerをEMLinux 3.1にインストールする
+# EMLinux 3.1にDockerをインストールする
 本記事では、EMLinux 3.1にDockerをインストールするための手順を示します。
 
 ## 目次
