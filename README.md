@@ -8,6 +8,9 @@
   - GitHub: https://github.com/miraclelinux/meta-emlinux
 
 # Documentation
+## Build EMLinux
+- How to build EMLinux 3.1.
+  - [Japanese](doc/jp/Build-EMLinux31_jp.md)
 <!--
 ## Docker
 - How to install Docker on EMLinux 3.1.
@@ -15,7 +18,6 @@
 ## K3s
 - How to install K3s on EMLinux 3.1.
   - [Japanese](doc/jp/Install-K3s_jp.md)
-
 ## Podman
 - How to install Podman on EMLinux 3.1.
   - [Japanese](doc/jp/Install-Podman_jp.md)
