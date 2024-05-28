@@ -122,6 +122,10 @@
    ```sh
    source repos/meta-emlinux/scripts/setup-emlinux build 
    ```
+1. viコマンドで、conf/bblayers.confの末尾に以下を追記してください。
+   ```
+   BBLAYERS += "${TOPDIR}/../repos/meta-docker"
+   ```   
 1. 以下のコマンドを実行し、meta-dockerが追加されていることを確認してください。
    ```sh
    $ bitbake-layers show-layers 
