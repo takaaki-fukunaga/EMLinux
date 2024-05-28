@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "BBLAYERS += \"\${TOPDIR}/../repos/meta-dockerm\"" >> conf/bblayers.conf
