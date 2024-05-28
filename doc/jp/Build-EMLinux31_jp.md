@@ -1,7 +1,7 @@
 # EMLinux 3.1のビルド方法
+本記事では、GitHub版のEMLinux 3.1をDockerを活用しビルドする手順を示します。また、ビルドしたEMLinux 3.1のOSイメージ (ARM64版) をQEMU (qemu-system-aarch64) で起動します。
 
 ## 目次
-- [はじめに](#はじめに)
 - [構成図](#構成図)
 - [各ソフトウェアのバージョン](#各ソフトウェアのバージョン)
 - [前提条件](#前提条件)
@@ -9,10 +9,6 @@
 - [meta-emlinuxリポジトリのクローン](#meta-emlinuxリポジトリのクローン)
 - [EMLinuxのビルド](#emlinuxのビルド)
 - [QEMUでEMLinux 3.1を起動する](#qemuでemlinux-31を起動する)
-- [さいごに](#さいごに)
-
-## はじめに
-本記事では、GitHub版のEMLinux 3.1をDockerを活用しビルドする手順を示します。また、ビルドしたEMLinux 3.1のOSイメージ (ARM64版) をQEMU (qemu-system-aarch64) で起動します。
 
 ## 構成図
 ### EMLinux 3.1のビルド時
@@ -253,8 +249,3 @@ Copyright (c) 2003-2019 Fabrice Bellard and the QEMU Project developers
    EMLinux3 login: root
    Password: 
    ```
-
-## さいごに
-本記事では、GitHub版のEMLinux 3.1をDockerを活用しビルドしました。また、ビルドしたEMLinux 3.1のOSイメージ (ARM64版) を、QEMU (qemu-system-aarch64) で無事に起動することができました。
-
-[EMLinuxの対応ボード](https://www.cybertrust.co.jp/iot/emlinux.html#board)をすぐに入手することが難しい場合でも、QEMUであれば簡単に動作確認を行うことが可能です。
