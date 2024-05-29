@@ -10,6 +10,7 @@
 ## Documentation
 ### Build EMLinux
 - How to build EMLinux 3.1.
+  - [English](doc/en/Build-EMLinux31_en.md)
   - [Japanese](doc/jp/Build-EMLinux31_jp.md)
 
 ### Docker
