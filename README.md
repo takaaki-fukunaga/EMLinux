@@ -21,11 +21,9 @@
 - How to install K3s on EMLinux 3.1.
   - [Englise](doc/en/Install-K3s-on-EMLinux31_en.md)
   - [Japanese](doc/jp/Install-K3s-on-EMLinux31_jp.md)
-<!--
 ### Podman
 - How to install Podman on EMLinux 3.1.
-  - [Japanese](doc/jp/Install-Podman_jp.md)
--->
+  - [Japanese](doc/jp/Install-Podman-on-EMLinux31_jp.md)
 
 ## Link
 - [ISAR User Manual](https://github.com/ilbers/isar/blob/master/doc/user_manual.md)
