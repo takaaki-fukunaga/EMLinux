@@ -1,21 +1,21 @@
-# EMLinux 3.1にK3sをインストールする方法
-本記事では、EMLinux 3.1にK3sをインストールするための手順を示します。
+# Install K3s on EMLinux 3.1
+This article describes how to install K3s on EMLinux 3.1.
 
 ## 目次
-- [構成図](#構成図)
-- [各ソフトウェアのバージョン](#各ソフトウェアのバージョン)
-- [前提条件](#前提条件)
-- [EMLinux 3.1のビルドに必要なパッケージのインストール](#emlinux-31のビルドに必要なパッケージのインストール)
-- [K3sのダウンロード](#k3sのダウンロード)
-- [meta-emlinuxリポジトリのクローン](#meta-emlinuxリポジトリのクローン)
-- [レシピのカスタマイズ](#レシピのカスタマイズ)
-- [EMLinuxのビルド](#emlinuxのビルド)
-- [QEMUでEMLinux 3.1を起動する](#qemuでemlinux-31を起動する)
-- [コンテナホストからkubectlを実行する](#コンテナホストからkubectlを実行する)
-- [NGINXのPodの作成](#nginxのpodの作成)
+- [Configuration](#configuration)
+- [Software Version](#software-version)
+- [Prerequisites](#prerequisites)
+- [Install Packages to Build EMLinux 3.1](#install-packages-to-build-emlinux-31)
+- [Download K3s](#download-k3s)
+- [Clone meta-emlinux Repository](#clone-meta-emlinux-repository)
+- [Customize Recipes](#customize-recipes)
+- [Build EMLinux 3.1](#build-emlinux-31-1)
+- [Run EMLinux 3.1 with QEMU](#run-emlinux-31-with-qemu-1)
+- [Run kubectl command from Container Host](#run-kubectl-command-from-container-host)
+- [Create NGINX Pod](#create-nginx-pod)
 
-## 構成図
-### EMLinux 3.1のビルド時
+## Configuration
+### Build EMLinux 3.1
 ```
 +--------------------------------+
 | +----------------------------+ |
@@ -31,7 +31,7 @@
 +--------------------------------+
 ```
 
-### EMLinux 3.1の起動時
+### Run EMLinux 3.1 with QEMU
 ```
 +--------------------------------+
 | +----------------------------+ |
@@ -59,7 +59,7 @@
 +--------------------------------+
 ```
 
-## 各ソフトウェアのバージョン
+## Software Version
 ### Ubuntu Server
 ```
 $ cat /etc/lsb-release 
@@ -95,90 +95,89 @@ k3s version v1.30.0+k3s1 (14549535)
 go version go1.22.2
 ```
 
-## 前提条件
-1. 以下を参照してください。
-   - [前提条件](./Build-EMLinux31_jp.md#前提条件)
+## Prerequisites
+1. Refer to the following page.
+   - [Prerequisites](./Build-EMLinux31_en.md#prerequisites)
 
-## EMLinux 3.1のビルドに必要なパッケージのインストール
-1. 以下を参考に、必要なパッケージをインストールしてください。
-   - [EMLinux 3.1のビルドに必要なパッケージのインストール](../../doc/jp/Build-EMLinux31_jp.md#emlinux-31のビルドに必要なパッケージのインストール)
+## Install Packages to Build EMLinux 3.1
+1. Refer to the following page.
+   - [Install Packages to Build EMLinux 3.1](./Build-EMLinux31_en.md#install-packages-to-build-emlinux-31)
 
-
-## K3sのダウンロード
-1. K3sをダウンロードしてください。本手順では、ARM64版のバイナリファイルを使用します。
+## Download K3s
+1. Download K3s.
    ```sh
    wget -q "https://github.com/k3s-io/k3s/releases/download/v1.30.0+k3s1/k3s-arm64" -O ./k3s
    ```
-   - 最新のバージョンは以下で確認してください。
+   - You can check the latest version on the following site.
      - https://github.com/k3s-io/k3s/releases
-1. ARM64版のバイナリファイルであることを確認してください。
+1. Check if the binary file is ARM64.
    ```
    $ file k3s
    k3s: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, Go BuildID=sgjlNVCdbgJadT7Nkgnz/1shQ9VtPwZOY17U5jUlP/oi8kFs5uudpYa6XvT6if/if9gZ0XG95E6uODSd-34, stripped
    ```
 
-## meta-emlinuxリポジトリのクローン
-1. リポジトリをクローンするためのディレクトリを作成してください。
+## Clone meta-emlinux Repository
+1. Create a directory to save `meta-emlinux` repository.
    ```sh
    mkdir -p /home/emlinux/github/emlinux/bookworm/k3s/repos
    ```
-1. 以下のディレクトリに移動してください。   
+1. Move to the following directory. 
    ```sh
    cd /home/emlinux/github/emlinux/bookworm/k3s
    ```   
-1. git cloneコマンドで、リポジトリをクローンしてください。
+1. Clone `meta-emlinux` repository.
    ```sh
    git clone -b bookworm https://github.com/miraclelinux/meta-emlinux.git repos/meta-emlinux
    ```
 
-## レシピのカスタマイズ
-1. 本レポジトリをクローンするため、任意のディレクトリに移動してください。
+## Customize Recipes
+1. Move to any directory to save this reository.
    ```sh
    cd /home/emlinux/github
    ```
-1. git cloneコマンドで、本レポジトリをクローンしてください。
+1. Clone the repository.
    ```sh
    git clone https://github.com/takaaki-fukunaga/EMLinux.git
    ```
-1. [meta-k3s](../../layer/meta-k3s/)ディレクトリを、meta-emlinuxをクローンしたディレクトリに移動してください。
+1. Copy [meta-k3s](../../layer/meta-k3s/) directory to `repos` directory as below.
    ```sh
    cp -a EMLinux/layer/meta-k3s /home/emlinux/github/emlinux/bookworm/k3s/repos/
    ```
-1. [上記手順](#k3sのダウンロード)でダウンロードしたK3sを以下に保存してください。
+1. Copy `k3s` binary that you have got on the step [Download K3s](#download-k3s) to `files` directory.
    ```
    cp k3s /home/emlinux/github/emlinux/bookworm/k3s/repos/meta-k3s/recipes-k3s/configure-k3s/files
    ```
-1. vimコマンドで、k3s.service.envファイルを開いてください。
+1. Open `k3s.service.env` with `vim` or the other editor.
    ```sh
    vim /home/emlinux/github/emlinux/bookworm/k3s/repos/meta-k3s/recipes-k3s/configure-k3s/files/k3s.service.env
    ```
-1. k3s.service.envを環境に合わせて編集してください。
+1. Add your proxy server information as below.
    ```
    HTTP_PROXY=http://your-proxy-server.com:80
    HTTPS_PROXY=http://your-proxy-server.com:80
    NO_PROXY=localhost,127.0.0.1
    ```
 
-## EMLinuxのビルド
-1. 以下のディレクトリに移動してください。
+## Build EMLinux 3.1
+1. Move to the following directory.
    ```sh
    cd /home/emlinux/github/emlinux/bookworm/k3s/repos/meta-emlinux/docker
    ```
-1. 上記dockerディレクトリ内にあるrun.shを実行してください。初回起動時にはコンテナの作成処理が行われます。コンテナ作成処理後、コンテナにログインした状態になります。
+1. Execute `run.sh`. At first startup, the script creates the Debian container. After container creation, you login the container.
    ```
    $ ./run.sh
    (snip)
    build@82fa043f8378:~/work$
    ```
-1. 以下のコマンドを実行し、ビルドのために必要な環境変数を設定してください。
+1. Run the following command to set environment variabes.
    ```sh
    source repos/meta-emlinux/scripts/setup-emlinux build 
    ```
-1. viコマンドで、conf/bblayers.confの末尾に以下を追記してください。
+1. Open `conf/bblayers.conf` with `vi` and add the following lines.
    ```
    BBLAYERS += "${TOPDIR}/../repos/meta-k3s"
    ```   
-1. 以下のコマンドを実行し、meta-dockerが追加されていることを確認してください。
+1. Run the following command to check if `meta-k3s` is added.
    ```sh
    $ bitbake-layers show-layers 
    NOTE: Starting bitbake server...
@@ -189,7 +188,7 @@ go version go1.22.2
    isar-cip-core         /home/build/work/build/../repos/isar-cip-core  6
    meta-k3s              /home/build/work/build/../repos/meta-k3s  30
    ```
-1. viエディタでlocal.confファイルを開き、ファイルの末尾に以下を追記してください。
+1. Open `conf/local.conf` with `vi` and add the following lines.
    ```
    $ vi conf/local.conf
    (snip)
@@ -202,21 +201,22 @@ go version go1.22.2
    # Extra space for rootfs in MB
    ROOTFS_EXTRA = "10240"
    ```
-1. EMLinuxのビルドを行ってください。
+1. Run `bitbake` command to build EMLinux.
    ```sh
    bitbake emlinux-image-base
    ```
-1. ビルド完了後、exitコマンドでコンテナからログアウトしてください。
+1. Logout the container.
    ```
    build@82fa043f8378:~/work$ exit 
    exit
    ```
-## QEMUでEMLinux 3.1を起動する
-1. 以下のパッケージをインストールしてください。
+
+## Run EMLinux 3.1 with QEMU
+1. Install the following packages.
    ```sh
    sudo apt install -y qemu-system-arm seabios
    ```
-1. TAPデバイス (以下の実行例ではtap0) を作成してください。
+1. Create TAP device (e.g., tap0).
    ```sh
    sudo ip tuntap add tap0 mode tap
    ```
@@ -229,18 +229,18 @@ go version go1.22.2
    ```sh
    sudo ip link set dev tap0 up
    ```
-1. 以下のディレクトリに移動してください。
+1. Move to the following directory.
    ```sh
    cd /home/emlinux/github/emlinux/bookworm/k3s/build
    ```
-1. run.shを作成してください。
+1. Create `run.sh`.
    ```sh
    touch run.sh
    ```
    ```sh
    chmod +x run.sh
    ```
-1. vimなどでrun.shを以下のように編集してください。
+1. Edit `run.sh` as below with `vim` or the other text editor.
    ```
    qemu-system-aarch64 \
    -net nic \
@@ -262,17 +262,16 @@ go version go1.22.2
    -initrd ./tmp/deploy/images/qemu-arm64-k3s/emlinux-image-base-emlinux-bookworm-qemu-arm64-k3s-initrd.img \
    -append 'root=/dev/vda rw highres=off console=ttyS0 mem=2G ip=dhcp console=ttyAMA0'
    ```
-1. sudo権限を持ったユーザで、以下を実行してください。
+1. Execute `run.sh` with `sudo` privilege.
    ```sh
    sudo ./run.sh
    ```
-   - パスワードを問われる場合には、sudo権限を持ったユーザのパスワードを入力してください。
-1. rootユーザでログインしてください。既定のパスワードはrootです。
+1. Login with `root` user. The default password is `root`.
    ```
    EMLinux3 login: root
    Password: 
    ```
-1. K3sが起動していることを確認してください。
+1. Check if K3s is running.
    ```
    # ./k3s kubectl get node
    
@@ -290,18 +289,18 @@ go version go1.22.2
    kube-system   svclb-traefik-b3187f0c-tmv4t              2/2     Running     0          21m
    kube-system   traefik-5fb479b77-q84zm                   1/1     Running     0          21m
    ```
-1. 以下のコマンドを実行し、コマンド出力結果を、一時的に任意のテキストファイルに保存してください。
+1. Run the following command and save the command result on any text file.
    ```sh
    ./k3s kubectl config view --raw
    ```
 
-## コンテナホストからkubectlを実行する
-1. コンテナホスト (本記事ではUbuntu Server) にて、kubectlコマンドを実行するためのユーザを作成してください。本記事ではkubeuerという名前のユーザを作成しました。
-1. kubeuserでログインし、ホームディレクトリ (e.g., /home/kubeuser) に、.kubeディレクトリを作成してください。
+## Run kubectl command from Container Host
+1. Create a user (e.g., `kubeuser`) to run kubectl command on the container host (e.g., Ubuntu Server).
+1. Login with `kubeuser` account and create `.kube` directory on the home directory (e.g., `/home/kubeuser`).
    ```sh
    mkdir .kube
    ```
-1. vimなどで.kube/configを作成し、`./k3s kubectl config view --raw`の実行結果を貼り付けてください。また、IPアドレスが、127.0.0.1となっている個所を、EMLinuxのIPアドレス (本記事の環境では192.168.122.77でした) に変更してください。
+1. Create `.kube/config`, paste the result of `./k3s kubectl config view --raw` and change IP address from `127.0.0.1` to IP address of your EMLinux (in this article, IP address is `192.168.122.77`).
    ```sh
    vim .kube/config
    ```
@@ -326,22 +325,22 @@ go version go1.22.2
        client-certificate-data: (snip)
        client-key-data: (snip)   
    ```
-1. kubectlをコンテナホストの任意の場所にダウンロードしてください。
+1. Download `kubectl`.
    ```sh
    curl -LO https://dl.k8s.io/release/v1.30.0/bin/linux/amd64/kubectl
    ```
-   - 参考: https://kubernetes.io/ja/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux
-1. kubectlがあるディレクトリにて、以下を実行し、k3sの状態を取得できることを確認してください。
+   - Reference: https://kubernetes.io/ja/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux
+1. Run the following command to check if you can get K3s status.
    ```sh
    ./kubectl get node
    ```
 
-## NGINXのPodの作成
-1. kubectlがあるディレクトリにて、yamlディレクトリを作成してください。
+## Create NGINX Pod
+1. Create `yaml` directory.
    ```sh
    mkdir yaml
    ```
-1. nginx.yamlファイルを作成し、以下のように編集してください。
+1. Create `nginx.yaml` file and edit as below.
    ```sh
    vim yaml/nginx.yaml
    ```
@@ -374,11 +373,11 @@ go version go1.22.2
      selector:
        app: nginx
    ```
-1. NGINXのPodと、ポートフォワードのためのServiceを作成してください。
+1. Apply the manifest file to create pod and service.
    ```sh
    kubectl apply -f nginx.yaml
    ```
-1. PodとServiceが動いていることを確認してください。
+1. Check if the Pod and Service are runnging.
    ```
    $ ./kubectl get pod,svc
    NAME        READY   STATUS    RESTARTS   AGE
@@ -388,8 +387,8 @@ go version go1.22.2
    service/kubernetes   ClusterIP   10.43.0.1     <none>        443/TCP        44m
    service/nginx        NodePort    10.43.22.94   <none>        80:30080/TCP   83s
    ```
-1. NGINXにアクセスできることを確認してください。
+1. Check if you can access to NGINX.
    ```sh
    curl 192.168.122.77:30080 --noproxy 192.168.122.77
    ```
-   - 本記事の環境ではproxyサーバがあるため、`--noproxy`を指定しています。
+   - If you don't have a proxy server, you don't need `--noproxy` option.

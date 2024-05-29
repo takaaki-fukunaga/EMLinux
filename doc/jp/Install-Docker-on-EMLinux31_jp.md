@@ -179,7 +179,7 @@
    ```
 1. 以下のディレクトリに移動してください。
    ```sh
-   cd /home/emlinux/github/emlinux/bookworm/misc/build
+   cd /home/emlinux/github/emlinux/bookworm/docker/build
    ```
 1. run.shを作成してください。
    ```sh

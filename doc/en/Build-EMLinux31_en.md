@@ -173,7 +173,7 @@ Copyright (c) 2003-2019 Fabrice Bellard and the QEMU Project developers
    ```sh
    source repos/meta-emlinux/scripts/setup-emlinux build 
    ```
-1. Open `conf/local.con` with `vi` and add the following lines.
+1. Open `conf/local.conf` with `vi` and add the following lines.
    ```
    $ vi conf/local.conf
    (snip)
@@ -188,6 +188,7 @@ Copyright (c) 2003-2019 Fabrice Bellard and the QEMU Project developers
    build@82fa043f8378:~/work$ exit 
    exit
    ```
+
 ## Run EMLinux 3.1 with QEMU
 1. Install the following packages.
    ```sh
