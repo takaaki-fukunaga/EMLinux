@@ -1,7 +1,7 @@
 # Install K3s on EMLinux 3.1
 This article describes how to install K3s on EMLinux 3.1.
 
-## 目次
+## Index
 - [Configuration](#configuration)
 - [Software Version](#software-version)
 - [Prerequisites](#prerequisites)
