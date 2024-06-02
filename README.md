@@ -19,7 +19,7 @@
 
 ### K3s
 - How to install K3s on EMLinux 3.1.
-  - [Englise](doc/en/Install-K3s-on-EMLinux31_en.md)
+  - [English](doc/en/Install-K3s-on-EMLinux31_en.md)
   - [Japanese](doc/jp/Install-K3s-on-EMLinux31_jp.md)
 ### Podman
 - How to install Podman on EMLinux 3.1.
