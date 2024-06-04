@@ -192,7 +192,7 @@ Copyright (c) 2003-2019 Fabrice Bellard and the QEMU Project developers
 ## Run EMLinux 3.1 with QEMU
 1. Install the following packages.
    ```sh
-   sudo apt install -y qemu-system-arm seabios
+   sudo apt install -y qemu-system-arm seabios libvirt-daemon-system
    ```
 1. Create TAP device (e.g., tap0).
    ```sh

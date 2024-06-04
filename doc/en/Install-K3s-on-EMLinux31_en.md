@@ -214,7 +214,7 @@ go version go1.22.2
 ## Run EMLinux 3.1 with QEMU
 1. Install the following packages.
    ```sh
-   sudo apt install -y qemu-system-arm seabios
+   sudo apt install -y qemu-system-arm seabios libvirt-daemon-system
    ```
 1. Create TAP device (e.g., tap0).
    ```sh
