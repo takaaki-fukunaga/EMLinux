@@ -25,5 +25,8 @@
 - How to install Podman on EMLinux 3.1.
   - [Japanese](doc/jp/Install-Podman-on-EMLinux31_jp.md)
 
+## Misc
+- [English](doc/en/Misc_en.md)
+
 ## Link
 - [ISAR User Manual](https://github.com/ilbers/isar/blob/master/doc/user_manual.md)
