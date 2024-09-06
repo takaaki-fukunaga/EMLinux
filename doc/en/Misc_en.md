@@ -19,3 +19,6 @@
 ```
 ./build/tmp/work/emlinux-bookworm-arm64/emlinux-image-weston-imx8mpevk/1.0-r0/rootfs
 ```
+
+## Version
+- [EMLinux and Kernel Versions](./KernelVersion.md)
