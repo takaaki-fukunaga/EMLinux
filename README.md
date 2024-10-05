@@ -7,6 +7,10 @@
   - Web page: https://www.cybertrust.co.jp/iot/emlinux.html
   - GitHub: https://github.com/miraclelinux/meta-emlinux
 
+## Flavors
+- Motai-san's repository
+  - https://github.com/hiromotai7/meta-emlinux-flavors
+
 ## Documentation
 ### Build EMLinux
 - How to build EMLinux 3.1.
