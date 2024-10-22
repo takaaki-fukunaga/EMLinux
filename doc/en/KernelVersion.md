@@ -1,6 +1,12 @@
 # EMLinux and Kernel Versions
 ## Index
+- [EMLinux 3.2](#emlinux-32)
 - [EMLinux 3.1](#emlinux-31)
+
+## EMLinux 3.2
+|Version|CIP Kernel             |
+|-------|-----------------------|
+|202410 |linux-cip-6.1.107-cip28|
 
 ## EMLinux 3.1
 |Version|CIP Kernel             |
